@@ -1,0 +1,175 @@
+.language-select-container {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.language-select-radial-button {
+  width: 60px;
+  height: 60px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.language-select-radial-button:hover {
+  transform: scale(1.1);
+}
+
+/* Menu for Desktop */
+.language-select-menu {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  transition: max-width 0.5s ease, opacity 0.5s ease;
+  max-width: 0;
+  opacity: 0;
+  margin-left: 10px;
+}
+
+.language-select-menu.open {
+  max-width: 600px;
+  opacity: 1;
+}
+
+.language-select-menu-item {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+  filter: grayscale(1);
+}
+
+.language-select-menu-item:hover {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.language-select-menu-item-selected {
+  filter: grayscale(0) !important;
+}
+
+.language-select-menu.closed {
+    visibility: hidden;
+}
+
+/* Modal for Mobile */
+.language-select-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s;
+  visibility: hidden;
+}
+
+.language-select-modal-content {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  width: 80%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(-20px);
+  opacity: 0;
+  animation: language-select-slideDown 0.4s forwards;
+}
+
+.language-select-modal.view {
+  opacity: 1;
+  visibility: visible;
+}
+
+.language-select-close-button {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.language-select-modal-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.language-select-modal-item {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+  filter: grayscale(1);
+}
+
+.language-select-modal-item:hover {
+  transform: scale(1.1);
+  opacity: 1;
+  filter: grayscale(0);
+}
+
+.language-select-modal:not(.view) {
+  visibility: hidden;
+}
+.language-select-modal:not(.view) .language-select-modal-content {
+  visibility: hidden;
+}
+
+
+/* Slide down animation for modal content */
+@keyframes language-select-slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide up animation for modal closing */
+@keyframes language-select-slideUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
