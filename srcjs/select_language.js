@@ -33,44 +33,24 @@ const SelectLanguage = ({ configuration, value, setValue }) => {
         setValue(abbr.toLowerCase());
     };
 
+    // Get CSS class for language flag (uses bundled CSS)
+    const getFlagClass = (lang) => `language-flag language-flag-${lang.toLowerCase()}`;
+
     return (
         <div className="language-select-container">
             <div
-                className="language-select-radial-button"
-                style={{
-                    backgroundImage: `url(${configuration.main_icon_path})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    height: '60px',
-                    width: '60px'
-                }}
+                className={`language-select-radial-button language-flag language-flag-main`}
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-                <img
-                    style={{
-                        height: 'inherit',
-                        width: 'inherit'
-                    }}
-                    src={configuration.main_icon_path}
-                    alt="languages"
-                />
-            </div>
+            />
 
             {isMobile ? (
                 <div className={`language-select-modal ${isMenuOpen ? 'view' : ''}`}>
                     <div className="language-select-modal-content" ref={modalRef}>
                         <div className="language-select-modal-options">
-                            {configuration.languages.map(({ name, lang, icon  }) => (
+                            {configuration.languages.map(({ name, lang }) => (
                                 <button
                                     key={lang}
-                                    className={`language-select-modal-item ${selectedLanguage.toUpperCase() === lang.toUpperCase() ? 'language-select-menu-item-selected' : ''}`}
-                                    style={{
-                                        backgroundImage: `
-                                            linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
-                                            url(${configuration.icons_path}/${icon})`,
-                                        backgroundSize: 'cover',
-                                        backgroundPosition: 'center'
-                                    }}
+                                    className={`language-select-modal-item ${getFlagClass(lang)} ${selectedLanguage.toUpperCase() === lang.toUpperCase() ? 'language-select-menu-item-selected' : ''}`}
                                     onClick={() => handleLanguageSelect(lang.toUpperCase())}
                                 >
                                     {lang.toUpperCase()}
@@ -81,17 +61,10 @@ const SelectLanguage = ({ configuration, value, setValue }) => {
                 </div>
             ) : (
                 <div className={`language-select-menu ${isMenuOpen ? 'open' : 'closed'}`}>
-                    {configuration.languages.map(({ name, lang,icon }) => (
+                    {configuration.languages.map(({ name, lang }) => (
                         <button
                             key={name}
-                            className={`language-select-menu-item ${selectedLanguage.toUpperCase() === lang.toUpperCase() ? 'language-select-menu-item-selected' : ''}`}
-                            style={{
-                                backgroundImage: `
-                                    linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
-                                    url(${configuration.icons_path}/${icon})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'center'
-                            }}
+                            className={`language-select-menu-item ${getFlagClass(lang)} ${selectedLanguage.toUpperCase() === lang.toUpperCase() ? 'language-select-menu-item-selected' : ''}`}
                             onClick={() => handleLanguageSelect(lang.toUpperCase())}
                         >
                             {lang.toUpperCase()}
@@ -109,4 +82,3 @@ export default function initSelectLanguage(){
     'language.selector.select_language',
     SelectLanguage);
 }
-

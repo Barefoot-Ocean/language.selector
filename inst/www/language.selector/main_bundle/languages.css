@@ -1,0 +1,45 @@
+/* Language Flags - Embedded in language.selector package */
+.language-flag {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+/* Language codes with gradient overlay for buttons */
+.language-flag-en {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("icons/england.png");
+}
+.language-flag-ceb {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("icons/philippines.png");
+}
+.language-flag-es {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("icons/spain.png");
+}
+.language-flag-fil {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("icons/philippines.png");
+}
+.language-flag-fr {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("icons/france.png");
+}
+.language-flag-id {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("icons/indonesia.png");
+}
+.language-flag-mg {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("icons/madagascar.png");
+}
+.language-flag-pt {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("icons/portugal.png");
+}
+.language-flag-sw {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("icons/tanzania.png");
+}
+.language-flag-tet {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("icons/easttimor.png");
+}
+
+/* Main language selector icon (no overlay) */
+.language-flag-main {
+  background-image: url("icons/languages.png");
+}

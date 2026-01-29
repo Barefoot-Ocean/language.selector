@@ -2,16 +2,66 @@
 % Please edit documentation in R/select_language.R
 \name{select_languageInput}
 \alias{select_languageInput}
-\title{Select Lanugage}
+\title{Language Selector Input}
 \usage{
-select_languageInput(
-  inputId,
-  default_language,
-  languages,
-  icons_path,
-  main_icon_path
-)
+select_languageInput(inputId, default_language, languages)
+}
+\arguments{
+\item{inputId}{The input slot that will be used to access the value.}
+
+\item{default_language}{The default selected language code (e.g., "en", "fr").}
+
+\item{languages}{A list of language configurations. Each entry should have:
+\describe{
+\item{name}{Full language name}
+\item{lang}{Language code abbreviation (used as CSS class: language-flag-{lang})}
+\item{icon}{Icon filename (for reference, actual display uses CSS classes)}
+}
+Use \code{language.selector::languages} for built-in configuration.}
+}
+\value{
+A Shiny input element that can be placed in UI definitions.
 }
 \description{
-Select Lanugage
+Creates an interactive language selector component for Shiny applications.
+Features a radial button that expands to show language options with flag icons.
+Responsive design adapts to mobile (modal popup) and desktop (horizontal menu).
+}
+\details{
+Built-in language flag icons are automatically loaded via CSS classes.
+Use \code{language_flags} to see available flags, or \code{\link{generate_icon_css}}
+to add custom icons.
+}
+\examples{
+\dontrun{
+library(shiny)
+library(language.selector)
+
+ui <- fluidPage(
+  select_languageInput(
+    inputId = "language",
+    default_language = "en",
+    languages = language.selector::languages
+  ),
+  textOutput("selected")
+)
+
+server <- function(input, output, session) {
+  output$selected <- renderText({
+    paste("Selected language:", input$language)
+  })
+}
+
+shinyApp(ui, server)
+}
+
+}
+\seealso{
+\code{\link{updateSelect_languageInput}} for updating the selector
+
+\code{\link{languages}} for the built-in language configuration
+
+\code{\link{language_flags}} for available flag icons
+
+\code{\link{generate_icon_css}} for adding custom icons
 }

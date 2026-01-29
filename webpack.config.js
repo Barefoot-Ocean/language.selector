@@ -4,21 +4,31 @@ module.exports = {
     entry: path.join(__dirname, 'srcjs', 'main.jsx'),
     output: {
         path: path.join(__dirname, 'inst/www/language.selector/main_bundle'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        publicPath: ''
     },
     module: {
         rules: [
             {
-                test: /\.js$|jsx/,
+                test: /\.js$|\.jsx$/,
+                exclude: /node_modules/,
                 loader: 'babel-loader',
                 options: {
                     presets: ['@babel/preset-env', '@babel/preset-react']
                 }
             },
-            // For CSS so that import "path/style.css"; works
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.(png|jpg|jpeg|gif|svg)$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 50000,
+                    name: 'icons/[name].[ext]',
+                    fallback: 'file-loader'
+                }
             }
         ]
     },
@@ -26,6 +36,9 @@ module.exports = {
         'react': 'window.React',
         'react-dom': 'window.ReactDOM',
         'reactR': 'window.reactR'
+    },
+    resolve: {
+        extensions: ['.js', '.jsx']
     },
     stats: {
         colors: true
