@@ -36,3 +36,6 @@ vignettes/*.pdf
 rsconnect/
 
 node_modules/
+.DS_Store
+.idea/
+.claude/

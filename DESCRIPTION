@@ -19,5 +19,5 @@ Imports:
 Depends:
     R (>= 4.0)
 LazyData: true
-URL: https://github.com/blueventures/language.selector
-BugReports: https://github.com/blueventures/language.selector/issues
+URL: https://github.com/Barefoot-Ocean/language.selector
+BugReports: https://github.com/Barefoot-Ocean/language.selector/issues
