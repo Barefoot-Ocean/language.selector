@@ -2,6 +2,7 @@
 
 export(generate_icon_css)
 export(language_flags)
+export(languages)
 export(select_languageInput)
 export(updateSelect_languageInput)
 importFrom(htmltools,htmlDependency)

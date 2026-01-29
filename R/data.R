@@ -23,8 +23,19 @@
 #' )
 #' }
 #'
-#' @name languages
-"languages"
+#' @export
+languages <- list(
+  list(name = "English", lang = "en", icon = "england.png"),
+  list(name = "Cebuano", lang = "ceb", icon = "philippines.png"),
+  list(name = "Spanish", lang = "es", icon = "spain.png"),
+  list(name = "Filipino", lang = "fil", icon = "philippines.png"),
+  list(name = "French", lang = "fr", icon = "france.png"),
+  list(name = "Indonesian", lang = "id", icon = "indonesia.png"),
+  list(name = "Malagasy", lang = "mg", icon = "madagascar.png"),
+  list(name = "Portuguese", lang = "pt", icon = "portugal.png"),
+  list(name = "Swahili", lang = "sw", icon = "tanzania.png"),
+  list(name = "Tetum", lang = "tet", icon = "easttimor.png")
+)
 
 #' Built-in Language Flag Icons
 #'
