@@ -600,7 +600,7 @@ var SelectLanguage = function SelectLanguage(_ref) {
     _useState6 = _slicedToArray(_useState5, 2),
     isMobile = _useState6[0],
     setIsMobile = _useState6[1];
-  var modalRef = Object(react__WEBPACK_IMPORTED_MODULE_1__["useRef"])(null);
+  var containerRef = Object(react__WEBPACK_IMPORTED_MODULE_1__["useRef"])(null);
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     var handleResize = function handleResize() {
       return setIsMobile(window.innerWidth <= 768);
@@ -612,21 +612,28 @@ var SelectLanguage = function SelectLanguage(_ref) {
   }, []);
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     var handleClickOutside = function handleClickOutside(event) {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
         setIsMenuOpen(false);
       }
     };
-    if (isMenuOpen) {
+    if (isMenuOpen && !isMobile) {
       document.addEventListener('mousedown', handleClickOutside);
     }
     return function () {
       return document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isMenuOpen]);
+  }, [isMenuOpen, isMobile]);
   var handleLanguageSelect = function handleLanguageSelect(abbr) {
     setSelectedLanguage(abbr);
     setIsMenuOpen(false);
     setValue(abbr.toLowerCase());
+  };
+
+  // Close modal when clicking on backdrop (not content)
+  var handleModalBackdropClick = function handleModalBackdropClick(event) {
+    if (event.target === event.currentTarget) {
+      setIsMenuOpen(false);
+    }
   };
 
   // Get CSS class for language flag (uses bundled CSS)
@@ -634,17 +641,18 @@ var SelectLanguage = function SelectLanguage(_ref) {
     return "language-flag language-flag-".concat(lang.toLowerCase());
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "language-select-container"
+    className: "language-select-container",
+    ref: containerRef
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "language-select-radial-button language-flag language-flag-main",
     onClick: function onClick() {
       return setIsMenuOpen(!isMenuOpen);
     }
   }), isMobile ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "language-select-modal ".concat(isMenuOpen ? 'view' : '')
+    className: "language-select-modal ".concat(isMenuOpen ? 'view' : ''),
+    onClick: handleModalBackdropClick
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "language-select-modal-content",
-    ref: modalRef
+    className: "language-select-modal-content"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "language-select-modal-options"
   }, configuration.languages.map(function (_ref2) {

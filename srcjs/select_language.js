@@ -7,7 +7,7 @@ const SelectLanguage = ({ configuration, value, setValue }) => {
     const [selectedLanguage, setSelectedLanguage] = useState(value.toUpperCase());
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-    const modalRef = useRef(null);
+    const containerRef = useRef(null);
 
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -17,15 +17,15 @@ const SelectLanguage = ({ configuration, value, setValue }) => {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (modalRef.current && !modalRef.current.contains(event.target)) {
+            if (containerRef.current && !containerRef.current.contains(event.target)) {
                 setIsMenuOpen(false);
             }
         };
-        if (isMenuOpen) {
+        if (isMenuOpen && !isMobile) {
             document.addEventListener('mousedown', handleClickOutside);
         }
         return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [isMenuOpen]);
+    }, [isMenuOpen, isMobile]);
 
     const handleLanguageSelect = (abbr) => {
         setSelectedLanguage(abbr);
@@ -33,19 +33,29 @@ const SelectLanguage = ({ configuration, value, setValue }) => {
         setValue(abbr.toLowerCase());
     };
 
+    // Close modal when clicking on backdrop (not content)
+    const handleModalBackdropClick = (event) => {
+        if (event.target === event.currentTarget) {
+            setIsMenuOpen(false);
+        }
+    };
+
     // Get CSS class for language flag (uses bundled CSS)
     const getFlagClass = (lang) => `language-flag language-flag-${lang.toLowerCase()}`;
 
     return (
-        <div className="language-select-container">
+        <div className="language-select-container" ref={containerRef}>
             <div
                 className={`language-select-radial-button language-flag language-flag-main`}
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
             />
 
             {isMobile ? (
-                <div className={`language-select-modal ${isMenuOpen ? 'view' : ''}`}>
-                    <div className="language-select-modal-content" ref={modalRef}>
+                <div
+                    className={`language-select-modal ${isMenuOpen ? 'view' : ''}`}
+                    onClick={handleModalBackdropClick}
+                >
+                    <div className="language-select-modal-content">
                         <div className="language-select-modal-options">
                             {configuration.languages.map(({ name, lang }) => (
                                 <button
