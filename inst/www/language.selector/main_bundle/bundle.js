@@ -133,35 +133,44 @@ module.exports = function (cssWithMappingToString) {
   list.toString = function toString() {
     return this.map(function (item) {
       var content = cssWithMappingToString(item);
+
       if (item[2]) {
         return "@media ".concat(item[2], " {").concat(content, "}");
       }
+
       return content;
     }).join("");
   }; // import a list of modules into the list
   // eslint-disable-next-line func-names
+
 
   list.i = function (modules, mediaQuery, dedupe) {
     if (typeof modules === "string") {
       // eslint-disable-next-line no-param-reassign
       modules = [[null, modules, ""]];
     }
+
     var alreadyImportedModules = {};
+
     if (dedupe) {
       for (var i = 0; i < this.length; i++) {
         // eslint-disable-next-line prefer-destructuring
         var id = this[i][0];
+
         if (id != null) {
           alreadyImportedModules[id] = true;
         }
       }
     }
+
     for (var _i = 0; _i < modules.length; _i++) {
       var item = [].concat(modules[_i]);
+
       if (dedupe && alreadyImportedModules[item[0]]) {
         // eslint-disable-next-line no-continue
         continue;
       }
+
       if (mediaQuery) {
         if (!item[2]) {
           item[2] = mediaQuery;
@@ -169,9 +178,11 @@ module.exports = function (cssWithMappingToString) {
           item[2] = "".concat(mediaQuery, " and ").concat(item[2]);
         }
       }
+
       list.push(item);
     }
   };
+
   return list;
 };
 
@@ -187,61 +198,27 @@ module.exports = function (cssWithMappingToString) {
 "use strict";
 
 
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
-}
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-  return arr2;
-}
-function _iterableToArrayLimit(arr, i) {
-  var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]);
-  if (_i == null) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _s, _e;
-  try {
-    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-  return _arr;
-}
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 module.exports = function cssWithMappingToString(item) {
   var _item = _slicedToArray(item, 4),
-    content = _item[1],
-    cssMapping = _item[3];
+      content = _item[1],
+      cssMapping = _item[3];
+
   if (!cssMapping) {
     return content;
   }
+
   if (typeof btoa === "function") {
     // eslint-disable-next-line no-undef
     var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(cssMapping))));
@@ -252,6 +229,7 @@ module.exports = function cssWithMappingToString(item) {
     });
     return [content].concat(sourceURLs).concat([sourceMapping]).join("\n");
   }
+
   return [content].join("\n");
 };
 
@@ -622,7 +600,7 @@ var SelectLanguage = function SelectLanguage(_ref) {
     _useState6 = _slicedToArray(_useState5, 2),
     isMobile = _useState6[0],
     setIsMobile = _useState6[1];
-  var modalRef = Object(react__WEBPACK_IMPORTED_MODULE_1__["useRef"])(null);
+  var containerRef = Object(react__WEBPACK_IMPORTED_MODULE_1__["useRef"])(null);
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     var handleResize = function handleResize() {
       return setIsMobile(window.innerWidth <= 768);
@@ -634,62 +612,55 @@ var SelectLanguage = function SelectLanguage(_ref) {
   }, []);
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     var handleClickOutside = function handleClickOutside(event) {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
         setIsMenuOpen(false);
       }
     };
-    if (isMenuOpen) {
+    if (isMenuOpen && !isMobile) {
       document.addEventListener('mousedown', handleClickOutside);
     }
     return function () {
       return document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isMenuOpen]);
+  }, [isMenuOpen, isMobile]);
   var handleLanguageSelect = function handleLanguageSelect(abbr) {
     setSelectedLanguage(abbr);
     setIsMenuOpen(false);
     setValue(abbr.toLowerCase());
   };
+
+  // Close modal when clicking on backdrop (not content)
+  var handleModalBackdropClick = function handleModalBackdropClick(event) {
+    if (event.target === event.currentTarget) {
+      setIsMenuOpen(false);
+    }
+  };
+
+  // Get CSS class for language flag (uses bundled CSS)
+  var getFlagClass = function getFlagClass(lang) {
+    return "language-flag language-flag-".concat(lang.toLowerCase());
+  };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "language-select-container"
+    className: "language-select-container",
+    ref: containerRef
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "language-select-radial-button",
-    style: {
-      backgroundImage: "url(".concat(configuration.main_icon_path, ")"),
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      height: '60px',
-      width: '60px'
-    },
+    className: "language-select-radial-button language-flag language-flag-main",
     onClick: function onClick() {
       return setIsMenuOpen(!isMenuOpen);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
-    style: {
-      height: 'inherit',
-      width: 'inherit'
-    },
-    src: configuration.main_icon_path,
-    alt: "languages"
-  })), isMobile ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "language-select-modal ".concat(isMenuOpen ? 'view' : '')
+  }), isMobile ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "language-select-modal ".concat(isMenuOpen ? 'view' : ''),
+    onClick: handleModalBackdropClick
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "language-select-modal-content",
-    ref: modalRef
+    className: "language-select-modal-content"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "language-select-modal-options"
   }, configuration.languages.map(function (_ref2) {
     var name = _ref2.name,
-      lang = _ref2.lang,
-      icon = _ref2.icon;
+      lang = _ref2.lang;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
       key: lang,
-      className: "language-select-modal-item ".concat(selectedLanguage.toUpperCase() === lang.toUpperCase() ? 'language-select-menu-item-selected' : ''),
-      style: {
-        backgroundImage: "\n                                            linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),\n                                            url(".concat(configuration.icons_path, "/").concat(icon, ")"),
-        backgroundSize: 'cover',
-        backgroundPosition: 'center'
-      },
+      className: "language-select-modal-item ".concat(getFlagClass(lang), " ").concat(selectedLanguage.toUpperCase() === lang.toUpperCase() ? 'language-select-menu-item-selected' : ''),
       onClick: function onClick() {
         return handleLanguageSelect(lang.toUpperCase());
       }
@@ -698,16 +669,10 @@ var SelectLanguage = function SelectLanguage(_ref) {
     className: "language-select-menu ".concat(isMenuOpen ? 'open' : 'closed')
   }, configuration.languages.map(function (_ref3) {
     var name = _ref3.name,
-      lang = _ref3.lang,
-      icon = _ref3.icon;
+      lang = _ref3.lang;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
       key: name,
-      className: "language-select-menu-item ".concat(selectedLanguage.toUpperCase() === lang.toUpperCase() ? 'language-select-menu-item-selected' : ''),
-      style: {
-        backgroundImage: "\n                                    linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),\n                                    url(".concat(configuration.icons_path, "/").concat(icon, ")"),
-        backgroundSize: 'cover',
-        backgroundPosition: 'center'
-      },
+      className: "language-select-menu-item ".concat(getFlagClass(lang), " ").concat(selectedLanguage.toUpperCase() === lang.toUpperCase() ? 'language-select-menu-item-selected' : ''),
       onClick: function onClick() {
         return handleLanguageSelect(lang.toUpperCase());
       }

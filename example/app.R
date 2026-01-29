@@ -1,23 +1,33 @@
 library(shiny)
 library(language.selector)
 
-
 ui <- fluidPage(
-  titlePanel("Example"),
+  titlePanel("Language Selector Example"),
+
+  # Icons are bundled - just pass languages
   select_languageInput(
-    "langInput",
+    inputId = "langInput",
     default_language = "en",
-    languages = language.selector::languages,
-    icons_path = 'icons',
-    main_icon_path = 'languages.png'
+    languages = language.selector::languages
   ),
-  textOutput("textOutput")
+
+  hr(),
+  h4("Selected Language:"),
+  textOutput("textOutput"),
+
+  hr(),
+  h4("Available Language Flags:"),
+  verbatimTextOutput("flagsOutput")
 )
 
 server <- function(input, output, session) {
 
   output$textOutput <- renderText({
-    sprintf("You entered: %s", input$langInput)
+    sprintf("Language code: %s", input$langInput)
+  })
+
+  output$flagsOutput <- renderPrint({
+    language.selector::language_flags
   })
 }
 

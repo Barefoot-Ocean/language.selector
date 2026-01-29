@@ -2,10 +2,35 @@
 % Please edit documentation in R/select_language.R
 \name{updateSelect_languageInput}
 \alias{updateSelect_languageInput}
-\title{Update Select Lanugage}
+\title{Update Language Selector Input}
 \usage{
 updateSelect_languageInput(session, inputId, value, configuration = NULL)
 }
+\arguments{
+\item{session}{The Shiny session object.}
+
+\item{inputId}{The id of the input to update.}
+
+\item{value}{The new selected language code.}
+
+\item{configuration}{Optional list to update the configuration (languages).}
+}
+\value{
+Called for side effects (updating the input).
+}
 \description{
-Update Select Lanugage
+Change the value or configuration of a language selector from the server.
+}
+\examples{
+\dontrun{
+server <- function(input, output, session) {
+  observeEvent(input$switch_to_french, {
+    updateSelect_languageInput(session, "language", value = "fr")
+  })
+}
+}
+
+}
+\seealso{
+\code{\link{select_languageInput}} for creating the selector
 }
