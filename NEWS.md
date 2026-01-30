@@ -1,3 +1,8 @@
+# language.selector 0.1.1
+
+* Updated build toolchain to webpack 5 to address security vulnerabilities
+* Reduced JavaScript bundle size through improved build optimization
+
 # language.selector 0.1.0
 
 Initial CRAN release.

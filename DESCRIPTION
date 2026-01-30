@@ -1,6 +1,6 @@
 Package: language.selector
 Title: Interactive Language Selector Component for Shiny Applications
-Version: 0.1.0
+Version: 0.1.1
 Authors@R:
     person("Anastasiia", "Kostiv", role = c("aut", "cre"),
            email = "anastasiia.kostiv@blueventures.org")
