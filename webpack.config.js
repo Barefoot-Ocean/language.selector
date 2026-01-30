@@ -23,11 +23,14 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|jpeg|gif|svg)$/,
-                loader: 'url-loader',
-                options: {
-                    limit: 50000,
-                    name: 'icons/[name].[ext]',
-                    fallback: 'file-loader'
+                type: 'asset',
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: 50000
+                    }
+                },
+                generator: {
+                    filename: 'icons/[name][ext]'
                 }
             }
         ]
